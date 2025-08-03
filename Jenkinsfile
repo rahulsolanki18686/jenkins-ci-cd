@@ -43,7 +43,7 @@ pipeline {
        stage("Build Image"){
             steps{
                 script{
-                    bat 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .'
+                    bat 'docker build -t %IMAGE_NAME%:%IMAGE_TAG% .'
                 }
             }
         }
@@ -51,7 +51,7 @@ pipeline {
             steps{
                 withCredentials([string(credentialsId: 'dp', variable: 'dp')]) {
                 bat 'docker login -u rahulsolankis -p SMeet@134'
-                bat 'docker push ${IMAGE_NAME}:${IMAGE_TAG}'
+                bat 'docker push %IMAGE_NAME%:%IMAGE_TAG%'
                 }
             }
         }
