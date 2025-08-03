@@ -5,6 +5,14 @@ pipeline {
         // Install the Maven version configured as "M3" and add it to the path.
         maven "maven"
     }
+    environment{
+        APP_NAME = "spring-docker-cicd"
+        RELEASE = "1.0.0"
+        DOCKER_USER = "rahulsolankis"
+        IMAGE_NAME = "${DOCKER_USER}"+"/"+"${APP_NAME}"
+        IMAGE_TAG = "${RELEASE_NO}-${BUILD_NUMBER}"
+
+    }
     stages {
         stage('SCM checkout') {
             steps {
@@ -18,14 +26,7 @@ pipeline {
                 // bat "mvn -Dmaven.test.failure.ignore=true clean package"
             }
         }
-        environment{
-            APP_NAME = "spring-docker-cicd"
-            RELEASE = "1.0.0"
-            DOCKER_USER = "rahulsolankis"
-            IMAGE_NAME = "${DOCKER_USER}"+"/"+"${APP_NAME}"
-            IMAGE_TAG = "${RELEASE_NO}-${BUILD_NUMBER}"
 
-        }
          stage('MVN Build') {
             steps {
                script {
